@@ -1,0 +1,38 @@
+@import '_global';
+
+
+@mixin table {
+	table {
+		border-collapse: collapse;
+		width: 100%;
+
+		thead {
+			tr {
+				th {
+					border-bottom: 2px solid $primary;
+					padding: 1rem;
+					text-align: left;
+					text-transform: uppercase;
+					font-weight: 500;
+					color: $primary;
+				}
+			}
+		}
+
+		tbody {
+			tr {
+				td {
+					border-bottom: 1px solid $lighter-grey;
+					color: $darker-grey;
+					padding: 1rem;
+				}
+
+				&:last-child {
+					td {
+						border-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}
