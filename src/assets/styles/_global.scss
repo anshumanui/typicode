@@ -1,7 +1,7 @@
 
-$primary: #0077b6;
-$primaryDark: #023e8a;
-$primaryDarker: #03045e;
+$primary: #0096c7;
+$primaryDark: #0077b6;
+$primaryDarker: #023e8a;
 
 $darkest-grey: #333;
 $darker-grey: #555;
@@ -18,4 +18,15 @@ $white: #FFF;
 	margin: 0;
 	border: 0;
 	outline: 0;
+}
+
+a {
+	&:link, &:visited {
+		text-decoration: none;
+		transition: all 0.3s ease-in-out 0s;
+	}
+}
+
+ul {
+	list-style-type: none;
 }

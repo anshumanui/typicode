@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
 import Dashboard from './../components/Dashboard';
-import Posts from './../components/Posts';
+import Users from './../components/Users';
 import Todos from './../components/Todos';
 import Albums from './../components/Albums';
 import NoMatch from './../components/NoMatch';
@@ -13,8 +13,8 @@ const RouteAsObj = () => {
             path: "/", 
             element: <Dashboard />
         }, { 
-            path: "/posts", 
-            element: <Posts />
+            path: "/users", 
+            element: <Users />
         }, { 
             path: "/todos", 
             element: <Todos />

@@ -2,8 +2,7 @@
 
 main {
 	font-family: ProximaNova,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-	color: $darker-grey;
-	padding: 2rem;
+	color: $dark-grey;
 	box-sizing: border-box;
 	line-height: 1.5;
 	font-size: 15px;
@@ -13,15 +12,18 @@ main {
 	}
 
 	section {
+		padding: 3rem;
+
 		h1 {
 			font-weight: 500;
 			font-size: 2rem;
+			margin-bottom: 2rem;
+			color: $darker-grey;
 		}
 
 		@include table;
 
 		.typicode-card {
-			list-style-type: none;
 			display: flex;
 			flex-wrap: wrap;
 			gap: 2rem;
@@ -29,40 +31,68 @@ main {
 			> li {
 				box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 				border-radius: 10px;
-				max-width: 31.5%;
+				flex: 0 0 calc(25% - 2rem);
+				transition: all 0.3s ease-in-out 0s;
 
 				.typicode-cardUpper {
-					list-style-type: none;
 					padding: 2rem;
-					display: flex;
-					flex-wrap: wrap;
-					gap: 2rem;
 
 					> li {
+						margin-bottom: 1rem;
+						padding-bottom: 1rem;
 						border-bottom: 1px solid $lighter-grey;
-					}
-				}
 
-				.typicode-cardLower {
-					padding: 2rem;
-					background-color: $lighter-grey;
-					border-bottom-left-radius: 10px;
-					border-bottom-right-radius: 10px;
+						&:last-child {
+							margin-bottom: 0;
+							padding-bottom: 0;
+							border-bottom: 0;
+						}
 
-					> div {
-						&:nth-child(1) {
-							margin-bottom: 1.25rem;
-							padding-bottom: 1.25rem;
-							border-bottom: 1px solid $light-grey;
+						h3 {
+							font-weight: 500;
+							color: $primary;
+							text-transform: capitalize;
+							margin-bottom: 0.25rem;
 						}
 					}
 				}
 
-				h3 {
-					font-weight: 500;
-					color: $primary;
-					text-transform: capitalize;
-					margin-bottom: 0.5rem;
+				.typicode-cardLower {				
+					a {
+						&:link, &:visited {
+							text-transform: uppercase;
+							display: block;
+							padding: 1rem 2rem;
+							color: $lightest-grey;
+							background-color: $primary;
+							border-bottom-left-radius: 10px;
+							border-bottom-right-radius: 10px;
+						}
+					}
+				}
+
+				&:hover {
+					background-color: $primary;
+
+					.typicode-cardUpper {
+						> li {
+							h3 {
+								color: $lightest-grey;
+							}
+
+							p {
+								color: $lighter-grey;
+							}
+						}
+					}
+
+					.typicode-cardLower {				
+						a {
+							&:link, &:visited {
+								background-color: $primaryDark;
+							}
+						}
+					}
 				}
 			}
 		}

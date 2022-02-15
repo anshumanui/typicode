@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { APIRequest } from './../utils';
 
 
@@ -72,9 +73,12 @@ const Dashboard = ({ data, error }) => {
 
 
 const Posts = () => {
+	const location = useLocation();
+  	const { userid } = location.state;
+
 	return (
 		<section>
-			<h1>Posts</h1>
+			<h1>User: {userid}</h1>
 		</section>
 	)
 };
