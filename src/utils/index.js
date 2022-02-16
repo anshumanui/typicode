@@ -14,7 +14,7 @@ export const groupBy = (objectArray, property) => {
 
 
 export const APIRequest = (abortController, methodType, API_END_POINT, data=null) => {
-    const BASE_URL = 'https://jsonplaceholder.typicodes.com/';
+    const BASE_URL = 'https://jsonplaceholder.typicode.com/';
     const url = `${BASE_URL}${API_END_POINT}`;
 
     const requestPayload = {

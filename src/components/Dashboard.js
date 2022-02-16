@@ -75,7 +75,7 @@ const Dashboard = () => {
 					<LoadingBlock />
 				) : (
 					APIResponse.error ? (
-						<ErrorBlock />
+						<ErrorBlock {...APIResponse} />
 					) : (
 						<ul className="typicode-card">
 							{

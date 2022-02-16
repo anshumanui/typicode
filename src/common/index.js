@@ -1,13 +1,13 @@
 import { ErrorSvg } from './../assets/icons/svg';
 
 
-export const ErrorBlock = () => {
+export const ErrorBlock = ({ error }) => {
     return (
     	<div className="typicode-errorBlock">
 	        <figure>
 	            <ErrorSvg />
 	        </figure>
-	        <h1>Sorry! We are facing some trouble fetching data from the server right now.</h1>
+	        <h1>{ `Sorry! ${error}` }</h1>
             <h2>We would like to suggest few things to make it work.</h2>
             <ul>
             	<li>Try reloading the web page.</li>
@@ -25,6 +25,7 @@ export const LoadingBlock = () => {
 	        <figure>
 	            <img src={ `${process.env.PUBLIC_URL}/loader.svg` } alt="loader" />
 	        </figure>
+	        <h2>Loading users details. Just a moment!</h2>
 	    </div>
     )
 };

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
+import { LoadingBlock, ErrorBlock } from './../common/';
 
 
-const Table = ({ data }) => {
+const Table = ({ data, itemId }) => {
 	const headerData = ['Title', 'Body'];
+	const matchedData = data.filter(item => item.userId === itemId);
 
 	return (
 		<div className="typicode-table">	
@@ -16,18 +18,32 @@ const Table = ({ data }) => {
 						}
 					</tr>
 				</thead>
+				<tbody>
+					{
+						matchedData.map((item, index) => {
+							return (
+								<tr key={ `tr_posts_${index}` }>
+									<td>{ item.title }</td>
+									<td>{ item.body }</td>
+								</tr>
+							)
+						})
+					}
+				</tbody>
 			</table>
 		</div>
 	)
 };
 
 
-
-
-
 const UserDetails = ({ id, name, username, email, address, phone, website, company }) => {
 	return (
 		<ul className="typicode-userDetails">
+			<li>
+				<button>View Posts</button>
+				<button>View Todos</button>
+				<button>View Albums</button>
+			</li>
 			<li>
 				<h3>name</h3>
 				<p>{ name }</p>
@@ -65,7 +81,7 @@ const UserDetails = ({ id, name, username, email, address, phone, website, compa
 
 const Users = () => {
 	const location = useLocation();
-	const { itemId } = location.state;
+	const itemId = location.state.id;
 
 	const initAPIResponse = {
         data: null,
@@ -108,14 +124,16 @@ const Users = () => {
 			<h1>User Details</h1>
 
 			<div className="typicode-usersPosts">
+				<UserDetails {...location.state} />
 				{
-					APIResponse.error ? (
-						<h1>Sabu kichi fati gala</h1>
+					APIResponse.loading ? (
+						<LoadingBlock />
 					) : (
-						<>
-							<UserDetails {...location.state} />
-							<Table {...APIResponse} />
-						</>
+						APIResponse.error ? (
+							<ErrorBlock {...APIResponse} />
+						) : (
+							<Table {...APIResponse} {...{itemId}} />
+						)
 					)
 				}
 			</div>

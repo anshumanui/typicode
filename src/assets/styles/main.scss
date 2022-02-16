@@ -7,10 +7,6 @@ main {
 	line-height: 1.5;
 	font-size: 15px;
 
-	figure {
-		text-align: center;
-	}
-
 	section {
 		padding: 1rem 3rem;
 
@@ -73,6 +69,17 @@ main {
 				li {
 					padding: 3px 0;
 				}
+			}
+		}
+
+		.typicode-loadingBlock {
+			margin: 0 auto;
+			text-align: center;
+
+			h2 {
+				color: $grey;
+				font-weight: 300;
+				margin-top: 1rem;
 			}
 		}
 
@@ -148,23 +155,53 @@ main {
 		}
 
 		&.typicode-users {
-			.typicode-userDetails {
-				> li {
-					margin-bottom: 1rem;
-					padding-bottom: 1rem;
-					border-bottom: 1px solid $lighter-grey;
+			.typicode-usersPosts {
+				display: grid;
+				grid-template-columns: 1fr 3fr;
+				grid-gap: 3rem;
 
-					h3 {
+				.typicode-userDetails {
+					background-color: $lightest-grey;
+					border-radius: 7px;
+
+					> li {
+						padding: 1rem 1.5rem;
+						border-bottom: 1px solid $lighter-grey;
+
 						&:first-child {
-							margin-top: 0;
+							display: flex;
+							justify-content: space-around;
+							
+							button {
+								background-color: $primary;
+								color: $lightest-grey;
+								padding: 0.5rem 1rem;
+								border-radius: 3px;
+								transition: all 0.3s ease-in-out 0s;
+								cursor: pointer;
+
+								&:hover {
+									background-color: $primaryDark;
+								}
+							}
 						}
 
-						margin-top: 1rem;
+						h3 {
+							&:first-child {
+								margin-top: 0;
+							}
+
+							margin-top: 1rem;
+						}
+
+						&:last-child {
+							border-bottom: 0;
+						}
 					}
 				}
-			}
 
-			@include table;
+				@include table;
+			}
 		}
 	}
 }
