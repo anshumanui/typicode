@@ -1,36 +1,29 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
+import { LoadingBlock, ErrorBlock } from './../common/';
 
 
-const Loader = () => {
-	return (
-		<figure>
-            <img src={ `${process.env.PUBLIC_URL}/loader.svg` } alt="loader" />
-        </figure>
-	)
-}
 
-
-const Card = ({ id, name, username, email, address, phone, website, company }) => {
+const Card = ({ ...item }) => {
 	return (
 		<li>
 			<ul className="typicode-cardUpper">
 				<li>
 					<h3>username</h3>
-					<p>{ username }</p>
+					<p>{ item.username }</p>
 				</li>
 				<li>
 					<h3>email</h3>
-					<p>{ email }</p>
+					<p>{ item.email }</p>
 				</li>
 				<li>
 					<h3>phone</h3>
-					<p>{ phone }</p>
+					<p>{ item.phone }</p>
 				</li>
 			</ul>
 			<div className="typicode-cardLower">
-				<Link to="/users" state={{ userid: `${id}` }}>Load more</Link>
+				<Link to="/users" state={{...item}}>Load more</Link>
 			</div>
 		</li>
 	)
@@ -75,17 +68,21 @@ const Dashboard = () => {
     }, []);
 
 	return (
-		<section>
+		<section className="typicode-dashboard">
 			<h1>Dashboard</h1>
 			{
 				APIResponse.loading ? (
-					<Loader />
+					<LoadingBlock />
 				) : (
-					<ul className="typicode-card">
-						{
-							(APIResponse.data).map(item => <Card {...item} key={ `card_${item.id}` } />)
-						}
-					</ul>
+					APIResponse.error ? (
+						<ErrorBlock />
+					) : (
+						<ul className="typicode-card">
+							{
+								(APIResponse.data).map(item => <Card {...item} key={ `card_${item.id}` } />)
+							}
+						</ul>
+					)
 				)
 			}
 		</section>

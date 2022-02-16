@@ -1,86 +1,126 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { APIRequest } from './../utils';
+import { APIFailMsg, APIRequest } from './../utils';
 
 
-const Table = ({ data, loadPosts }) => {
-	const headerData = ['Name', 'Phone', 'Email', 'Username', 'Website'];
+const Table = ({ data }) => {
+	const headerData = ['Title', 'Body'];
 
-	return (	
-		<table>
-			<thead>
-				<tr>
-					{
-						headerData.map((item, index) => <th key={ `th_${index}` }>{ item }</th>)
-					}
-				</tr>
-			</thead>
-			<tbody>
-				{
-					data.map(item => {
-						return (
-							<tr key={ `tr_body_${item.id}` } onClick={ () => loadPosts(item.id) }>
-								<td>{ item.name }</td>
-								<td>{ item.phone }</td>
-								<td>{ item.email }</td>
-								<td>{ item.username }</td>
-								<td>{ item.website }</td>
-							</tr>
-						)
-					})
-				}
-			</tbody>
-		</table>
+	return (
+		<div className="typicode-table">	
+			<table>
+				<thead>
+					<tr>
+						{
+							headerData.map((item, index) => <th key={ `th_${index}` }>{ item }</th>)
+						}
+					</tr>
+				</thead>
+			</table>
+		</div>
 	)
 };
 
 
-const Post = () => {
+
+
+
+const UserDetails = ({ id, name, username, email, address, phone, website, company }) => {
 	return (
-		<h1>Posts here</h1>
+		<ul className="typicode-userDetails">
+			<li>
+				<h3>name</h3>
+				<p>{ name }</p>
+			</li>
+			<li>
+				<h3>email</h3>
+				<p>{ email }</p>
+			</li>
+			<li>
+				<h3>phone</h3>
+				<p>{ phone }</p>
+			</li>
+			<li>
+				<h3>username</h3>
+				<p>{ username }</p>	
+			</li>
+			<li>
+				<h3>website</h3>
+				<p>{ website }</p>
+			</li>
+			<li>
+				<h3>address</h3>
+				<p>{ `${address.suite}, Street - ${address.street},` }</p>
+				<p>{ `City - ${address.city}, Zipcode - ${address.zipcode}` }</p>
+			</li>
+			<li>
+				<h3>company details</h3>
+				<p>{ company.name }</p>
+				<p><em>{ `${company.catchPhrase }, ${company.bs}` }</em></p>
+			</li>
+		</ul>
 	)
-}
+};
 
 
-const Dashboard = ({ data, error }) => {
-	const loadPosts = async (itemId) => {
+const Users = () => {
+	const location = useLocation();
+	const { itemId } = location.state;
+
+	const initAPIResponse = {
+        data: null,
+        error: null,
+        loading: true
+    };
+
+    const [APIResponse, setAPIResponse] = useState(initAPIResponse);
+
+	const loadAPI = async (abortController) => {
         try {
-            const res = await APIRequest('GET', 'posts');
+            const res = await APIRequest(abortController, 'GET', 'posts');
             const response = await res.json();
 
-            
+            setAPIResponse((prevData) => ({
+                ...prevData,
+                data: response,
+                loading: false
+            }));
         } catch (error) {
-            
+            setAPIResponse((prevData) => ({
+                ...prevData,
+                error: APIFailMsg,
+                data: null,
+                loading: false
+            }));
         }
 	};
 
+	useEffect(() => {
+		const abortController = new AbortController();
+
+		loadAPI(abortController);
+
+        return () => abortController.abort();
+	}, []);
+
 	return (
-		<section>
-			<h1>Data Table Goes here</h1>
-			{
-				error ? (
-					<h1>Sabu kichi fati gala</h1>
-				) : (
-					<>
-						<Table {...{data}} {...{loadPosts}} />
-						<Post />
-					</>
-				)
-			}
+		<section className="typicode-users">
+			<h1>User Details</h1>
+
+			<div className="typicode-usersPosts">
+				{
+					APIResponse.error ? (
+						<h1>Sabu kichi fati gala</h1>
+					) : (
+						<>
+							<UserDetails {...location.state} />
+							<Table {...APIResponse} />
+						</>
+					)
+				}
+			</div>
 		</section>
 	)
 };
 
-
-const Posts = () => {
-	const location = useLocation();
-  	const { userid } = location.state;
-
-	return (
-		<section>
-			<h1>User: {userid}</h1>
-		</section>
-	)
-};
-
-export default Posts;
+export default Users;
