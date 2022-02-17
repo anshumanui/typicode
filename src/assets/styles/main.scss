@@ -96,17 +96,32 @@ main {
 					transition: all 0.3s ease-in-out 0s;
 
 					.typicode-cardUpper {
-						padding: 2rem;
+						padding: 2rem 1rem;
+						transition: all 0.3s ease-in-out 0s;
 
 						> li {
 							margin-bottom: 1rem;
 							padding-bottom: 1rem;
 							border-bottom: 1px solid $lighter-grey;
+							display: flex;
+							gap: 1rem;
+							align-items: center;
 
 							&:last-child {
 								margin-bottom: 0;
 								padding-bottom: 0;
 								border-bottom: 0;
+							}
+
+							figure {
+								svg {
+									width: 3rem;
+									height: 2rem;
+
+									path, polygon {
+										fill: $primary;
+									}
+								}
 							}
 						}
 					}
@@ -129,15 +144,23 @@ main {
 						background-color: $primary;
 
 						.typicode-cardUpper {
+							padding: 1rem;
+
 							> li {
 								border-color: rgba(255,255,255,0.5);
+
+								figure {
+									path, polygon {
+										fill: $lightest-grey;
+									}
+								}
 
 								h3 {
 									color: $lightest-grey;
 								}
 
 								p {
-									color: $lighter-grey;
+									color: rgba(255,255,255,0.75);
 								}
 							}
 						}
@@ -146,6 +169,7 @@ main {
 							a {
 								&:link, &:visited {
 									background-color: $primaryDark;
+									padding: 2rem;
 								}
 							}
 						}
@@ -175,10 +199,11 @@ main {
 							button {
 								background-color: $primary;
 								color: $lightest-grey;
-								padding: 0.5rem 1rem;
+								padding: 0.75rem 1rem;
 								border-radius: 3px;
 								transition: all 0.3s ease-in-out 0s;
 								cursor: pointer;
+								text-transform: uppercase;
 
 								&:hover {
 									background-color: $primaryDark;

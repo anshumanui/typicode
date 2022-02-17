@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
 import { LoadingBlock, ErrorBlock } from './../common/';
+import { UsernameSvg, PhoneSvg, EmailSvg } from './../assets/icons/svg';
 
 
 
@@ -10,16 +11,31 @@ const Card = ({ ...item }) => {
 		<li>
 			<ul className="typicode-cardUpper">
 				<li>
-					<h3>username</h3>
-					<p>{ item.username }</p>
+					<figure>
+						<UsernameSvg />
+					</figure>
+					<div>
+						<h3>username</h3>
+						<p>{ item.username }</p>
+					</div>
 				</li>
 				<li>
-					<h3>email</h3>
-					<p>{ item.email }</p>
+					<figure>
+						<EmailSvg />
+					</figure>
+					<div>
+						<h3>email</h3>
+						<p>{ item.email }</p>
+					</div>
 				</li>
 				<li>
-					<h3>phone</h3>
-					<p>{ item.phone }</p>
+					<figure>
+						<PhoneSvg />
+					</figure>
+					<div>
+						<h3>phone</h3>
+						<p>{ item.phone }</p>
+					</div>
 				</li>
 			</ul>
 			<div className="typicode-cardLower">

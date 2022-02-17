@@ -36,13 +36,13 @@ const Table = ({ data, itemId }) => {
 };
 
 
-const UserDetails = ({ id, name, username, email, address, phone, website, company }) => {
+const UserDetails = ({ id, name, username, email, address, phone, website, company, loadAPI }) => {
 	return (
 		<ul className="typicode-userDetails">
 			<li>
-				<button>View Posts</button>
-				<button>View Todos</button>
-				<button>View Albums</button>
+				<button onClick={ () => loadAPI('posts') }>Posts</button>
+				<button onClick={ () => loadAPI('todos') }>Todos</button>
+				<button onClick={ () => loadAPI('albums') }>Albums</button>
 			</li>
 			<li>
 				<h3>name</h3>
@@ -91,9 +91,10 @@ const Users = () => {
 
     const [APIResponse, setAPIResponse] = useState(initAPIResponse);
 
-	const loadAPI = async (abortController) => {
+	const loadAPI = async (category) => {
         try {
-            const res = await APIRequest(abortController, 'GET', 'posts');
+        	const abortController = new AbortController();
+            const res = await APIRequest(abortController, 'GET', category);
             const response = await res.json();
 
             setAPIResponse((prevData) => ({
@@ -101,6 +102,8 @@ const Users = () => {
                 data: response,
                 loading: false
             }));
+
+            return () => abortController.abort();
         } catch (error) {
             setAPIResponse((prevData) => ({
                 ...prevData,
@@ -112,11 +115,7 @@ const Users = () => {
 	};
 
 	useEffect(() => {
-		const abortController = new AbortController();
-
-		loadAPI(abortController);
-
-        return () => abortController.abort();
+		loadAPI('posts');
 	}, []);
 
 	return (
@@ -124,7 +123,7 @@ const Users = () => {
 			<h1>User Details</h1>
 
 			<div className="typicode-usersPosts">
-				<UserDetails {...location.state} />
+				<UserDetails {...location.state} {...{loadAPI}} />
 				{
 					APIResponse.loading ? (
 						<LoadingBlock />
