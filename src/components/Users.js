@@ -13,16 +13,20 @@ const Table = ({ data, itemId, activeCategory }) => {
 
 	const matchedData = data.filter(item => item.userId === itemId);
 	const defaultCount = 10;
+	const optionValues = [10, 20, 50, 100];
 
 	return (
 		<div className="typicode-table">
 			<p className="typicode-tableInfo">
 				<span>Showing { defaultCount } out of { matchedData.length } records</span>
 				<select name="recordsCount">
-					<option value="10" selected>10</option>
-					<option value="20" selected>20</option>
-					<option value="50" selected>50</option>
-					<option value="100" selected>100</option>
+					{
+						optionValues.map((item, index) => {
+							return (
+								<option value={ item } key={ `option_${index}` }>{ item }</option>
+							)
+						})
+					}
 				</select>
 			</p>
 			<table>
@@ -35,14 +39,35 @@ const Table = ({ data, itemId, activeCategory }) => {
 				</thead>
 				<tbody>
 					{
-						matchedData.map((item, index) => {
-							return (
-								<tr key={ `tr_posts_${index}` }>
-									<td>{ index + 1 }</td>
-									<td>{ item.title }</td>
-									<td>{ item.body }</td>
-								</tr>
-							)
+						matchedData.map((item, index) => {					
+							if (Object.keys(headerData)[0] === activeCategory) {
+								return (
+									<tr key={ `tr_posts_${index}` }>
+										<td>{ index + 1 }</td>
+										<td>{ item.title }</td>
+										<td>{ item.body }</td>
+									</tr>
+								)
+							}
+
+							if (Object.keys(headerData)[1] === activeCategory) {
+								return (
+									<tr key={ `tr_todos_${index}` }>
+										<td>{ index + 1 }</td>
+										<td>{ item.title }</td>
+										<td>{ item.completed ? 'lala' : 'pula'}</td>
+									</tr>
+								)
+							}
+
+							if (Object.keys(headerData)[2] === activeCategory) {
+								return (
+									<tr key={ `tr_albums_${index}` }>
+										<td>{ index + 1 }</td>
+										<td>{ item.title }</td>
+									</tr>
+								)
+							}
 						})
 					}
 				</tbody>
