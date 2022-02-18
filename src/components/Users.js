@@ -1,24 +1,23 @@
 import { Fragment, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
 import { LoadingBlock, ErrorBlock } from './../common/';
 
 
-const Table = ({ data, itemId, activeCategory }) => {
+const Table = ({ data, activeCategory }) => {
 	const headerData = {
-		posts: ['S.No.', 'Title', 'Body'],
+		posts: ['S.No.', 'Title', 'Body', 'Action'],
 		todos: ['S.No.', 'Title', 'Completed'],
-		albums: ['S.No.', 'Title']
+		albums: ['S.No.', 'Title', 'Action']
 	};
 
-	const matchedData = data.filter(item => item.userId === itemId);
 	const defaultCount = 10;
 	const optionValues = [10, 20, 50, 100];
 
 	return (
 		<div className="typicode-table">
 			<p className="typicode-tableInfo">
-				<span>Showing { defaultCount } out of { matchedData.length } records</span>
+				<span>Showing { defaultCount } out of { data.length } records</span>
 				<select name="recordsCount">
 					{
 						optionValues.map((item, index) => {
@@ -39,13 +38,14 @@ const Table = ({ data, itemId, activeCategory }) => {
 				</thead>
 				<tbody>
 					{
-						matchedData.map((item, index) => {					
+						data.map((item, index) => {					
 							if (Object.keys(headerData)[0] === activeCategory) {
 								return (
 									<tr key={ `tr_posts_${index}` }>
 										<td>{ index + 1 }</td>
 										<td>{ item.title }</td>
 										<td>{ item.body }</td>
+										<td><Link to="/details" state={{...item, activeCategory}}>View Comments</Link></td>
 									</tr>
 								)
 							}
@@ -65,6 +65,7 @@ const Table = ({ data, itemId, activeCategory }) => {
 									<tr key={ `tr_albums_${index}` }>
 										<td>{ index + 1 }</td>
 										<td>{ item.title }</td>
+										<td><Link to="/details" state={{...item, activeCategory}}>View Photos</Link></td>
 									</tr>
 								)
 							}
@@ -77,7 +78,7 @@ const Table = ({ data, itemId, activeCategory }) => {
 };
 
 
-const UserDetails = ({ id, name, username, email, address, phone, website, company, activeCategory, updateCategory }) => {
+const UserDetails = ({ name, username, email, address, phone, website, company, activeCategory, updateCategory }) => {
 	const categories = ['posts', 'todos', 'albums'];
 
 	return (
@@ -158,8 +159,10 @@ const Users = () => {
                 loading: true
             }));
 
+            const APIname = `users/${itemId}/${activeCategory}`;
+
         	const abortController = new AbortController();
-            const res = await APIRequest(abortController, 'GET', activeCategory);
+            const res = await APIRequest(abortController, 'GET', APIname);
             const response = await res.json();
 
             setAPIResponse((prevData) => ({
@@ -180,7 +183,7 @@ const Users = () => {
 	};
 
 	useEffect(() => {
-		loadAPI(activeCategory);
+		loadAPI();
 	}, [activeCategory]);
 
 	return (
@@ -197,7 +200,7 @@ const Users = () => {
 							<ErrorBlock {...APIResponse} />
 						) : (
 							APIResponse.data ? (
-								<Table {...APIResponse} {...{itemId}} {...{activeCategory}} />
+								<Table {...APIResponse} {...{activeCategory}} />
 							) : (null)
 						)
 					)

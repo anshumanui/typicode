@@ -25,6 +25,31 @@
 					border-bottom: 1px solid $lighter-grey;
 					color: $dark-grey;
 					padding: 1rem;
+
+					a {
+						&:link, &:visited {
+							border-radius: 3px;
+							border: 1px solid $primary;
+							color: $primary;
+							padding: 0.5rem 1rem;
+							transition: all 0.3s ease-in-out 0s;
+						}
+
+						&:hover, &:active, &:focus {
+							background-color: $primary;
+							color: $lightest-grey;
+						}
+					}
+
+					&:last-child {
+						min-width: 9.25rem;
+					}
+
+					figure {
+						img {
+							width: 3rem;
+						}
+					}
 				}
 
 				&:last-child {

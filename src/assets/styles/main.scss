@@ -8,13 +8,31 @@ main {
 	font-size: 15px;
 
 	section {
-		padding: 1rem 3rem;
+		padding: 2rem 3rem;
 
 		h1 {
 			font-weight: 500;
 			font-size: 2rem;
 			margin-bottom: 2rem;
 			color: $darker-grey;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			> a {
+				&:link, &:visited {
+					color: $primary;
+					font-size: 0.875rem;
+					text-transform: uppercase;
+					padding: 0 0.25rem;
+					border-radius: 3px;
+				}
+
+				&:hover, &:active, &:focus {
+					color: $lightest-grey;
+					background-color: $primaryDark;
+				}
+			}
 		}
 
 		h2 {
@@ -236,6 +254,40 @@ main {
 
 					@include table;
 				}
+			}
+		}
+
+		&.typicode-details {		
+			ul {
+				display: flex;
+				gap: 2rem;
+				margin-bottom: 1rem;
+
+				> li {
+					padding: 1rem 1.5rem;
+					background-color: $lightest-grey;
+					border-radius: 7px;
+
+					h3 {
+						&:first-child {
+							margin-top: 0;
+						}
+
+						margin-top: 1rem;
+					}
+
+					&:last-child {
+						border-bottom: 0;
+					}
+				}
+			}
+
+			.typicode-table {
+				.typicode-tableInfo {
+					text-align: right;
+				}
+
+				@include table;
 			}
 		}
 	}
