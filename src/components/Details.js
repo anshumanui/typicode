@@ -14,7 +14,7 @@ const Table = ({ data, activeCategory }) => {
 
 	return (
 		<div className="typicode-table">
-			<p className="typicode-tableInfo">
+			<div className="typicode-tableInfo">
 				<span>Showing { data.length > defaultCount ? defaultCount : data.length } out of { data.length } records</span>
 				<div>
 					Showing
@@ -29,7 +29,7 @@ const Table = ({ data, activeCategory }) => {
 					</select>
 					items per page
 				</div>
-			</p>
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -95,7 +95,7 @@ const CategoryDetails = ({ title, body, activeCategory }) => {
 };
 
 
-const Details = ({ childDetails, activeCategory, removeDetails }) => {
+const Details = ({ childDetails, activeCategory }) => {
 	const itemId = childDetails.id;
 	const APIEndPoint = activeCategory === 'posts' ? 'comments' : 'photos';
 
@@ -144,11 +144,6 @@ const Details = ({ childDetails, activeCategory, removeDetails }) => {
 
 	return (
 		<div className="typicode-details">
-			<h1>
-				<span>Details</span>
-				<span onClick={ () => removeDetails() }>Back to user details</span>
-			</h1>
-
 			<CategoryDetails {...childDetails} {...{activeCategory}} />
 			{
 				APIResponse.loading ? (

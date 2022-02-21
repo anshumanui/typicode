@@ -2,7 +2,7 @@
 
 main {
 	font-family: $font;
-	color: $dark-grey;
+	color: $darker-grey;
 	box-sizing: border-box;
 	line-height: 1.5;
 	font-size: 15px;
@@ -14,7 +14,7 @@ main {
 			font-weight: 500;
 			font-size: 2rem;
 			margin-bottom: 2rem;
-			color: $darker-grey;
+			color: $darkest-grey;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -27,13 +27,30 @@ main {
 					font-size: 0.875rem;
 					text-transform: uppercase;
 					padding: 0 0.25rem;
-					border-radius: 3px;
+					border-radius: 2px;
 					cursor: pointer;
 
 					&:hover {
 						color: $lightest-grey;
 						background-color: $primaryDark;
 					}
+				}
+			}
+
+			a {
+				&:link, &:visited {
+					transition: all 0.3s ease-in-out 0s;
+					color: $primary;
+					font-size: 0.875rem;
+					text-transform: uppercase;
+					padding: 0 0.25rem;
+					border-radius: 2px;
+					cursor: pointer;
+				}
+
+				&:hover, &:active, &:focus {
+					color: $lightest-grey;
+					background-color: $primaryDark;
 				}
 			}
 		}
@@ -111,9 +128,10 @@ main {
 				gap: 2rem;
 
 				> li {
-					box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+					box-shadow: 0 10px 20px rgba(0,150,199,0.1);
 					border-radius: 7px;
-					flex: 0 0 calc(25% - 1.5rem);
+					border: 1px solid $primary;
+					flex: 0 0 calc(25% - 1.65rem);
 					transition: all 0.3s ease-in-out 0s;
 
 					.typicode-cardUpper {
@@ -274,6 +292,8 @@ main {
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
+						margin-bottom: 1rem;
+						color: $dark-grey;
 
 						select {
 							border: 1px solid $grey;
@@ -295,7 +315,7 @@ main {
 			ul {
 				display: flex;
 				gap: 2rem;
-				margin-bottom: 1rem;
+				margin-bottom: 2rem;
 
 				> li {
 					padding: 1rem 1.5rem;
@@ -321,6 +341,7 @@ main {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
+					color: $dark-grey;
 
 					select {
 						border: 1px solid $grey;

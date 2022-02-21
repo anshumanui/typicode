@@ -17,7 +17,7 @@ const Table = ({ data, activeCategory, loadDetails }) => {
 
 	return (
 		<div className="typicode-table">
-			<p className="typicode-tableInfo">
+			<div className="typicode-tableInfo">
 				<span>Showing { data.length > defaultCount ? defaultCount : data.length } out of { data.length } records</span>
 				<div>
 					Showing
@@ -32,7 +32,7 @@ const Table = ({ data, activeCategory, loadDetails }) => {
 					</select>
 					items per page
 				</div>
-			</p>
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -207,7 +207,17 @@ const Users = () => {
 
 	return (
 		<section className="typicode-users">
-			<h1>User Details</h1>
+			<h1>
+				<span>User Details</span>
+				{
+					showParent ? (
+						<Link to="/">Back to dashboard</Link>
+					) : (
+						<span onClick={ () => removeDetails() }>Back to user details</span>
+					)
+				}
+			</h1>
+
 
 			<div className="typicode-usersPosts">
 				<UserDetails {...location.state} {...{activeCategory}} {...{updateCategory}} />
@@ -222,7 +232,7 @@ const Users = () => {
 								showParent ? (
 									<Table {...APIResponse} {...{activeCategory}} {...{loadDetails}} />
 								) : (
-									<Details {...{childDetails}} {...{activeCategory}} {...{removeDetails}} />
+									<Details {...{childDetails}} {...{activeCategory}} />
 								)
 							) : (null)
 						)
