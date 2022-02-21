@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
 import { LoadingBlock, ErrorBlock } from './../common/';
-import { UsernameSvg, PhoneSvg, EmailSvg } from './../assets/icons/svg';
+import { UsernameSvg, PhoneSvg, EmailSvg, RightArrowSvg } from './../assets/icons/svg';
 
 
 
@@ -39,7 +39,10 @@ const Card = ({ ...item }) => {
 				</li>
 			</ul>
 			<div className="typicode-cardLower">
-				<Link to="/users" state={{...item}}>Load more</Link>
+				<Link to="/users" state={{...item}}>
+					<span>Load more</span>
+					<RightArrowSvg />
+				</Link>
 			</div>
 		</li>
 	)

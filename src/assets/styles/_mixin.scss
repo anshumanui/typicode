@@ -26,16 +26,15 @@
 					color: $dark-grey;
 					padding: 1rem;
 
-					a {
-						&:link, &:visited {
-							border-radius: 3px;
-							border: 1px solid $primary;
-							color: $primary;
-							padding: 0.5rem 1rem;
-							transition: all 0.3s ease-in-out 0s;
-						}
+					span {
+						border-radius: 3px;
+						border: 1px solid $primary;
+						color: $primary;
+						padding: 0.5rem 1rem;
+						transition: all 0.3s ease-in-out 0s;
+						cursor: pointer;
 
-						&:hover, &:active, &:focus {
+						&:hover {
 							background-color: $primary;
 							color: $lightest-grey;
 						}

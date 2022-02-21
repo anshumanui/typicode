@@ -1,5 +1,4 @@
 import { Fragment, useState, useEffect } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { APIFailMsg, APIRequest } from './../utils';
 import { LoadingBlock, ErrorBlock } from './../common/';
 
@@ -16,16 +15,20 @@ const Table = ({ data, activeCategory }) => {
 	return (
 		<div className="typicode-table">
 			<p className="typicode-tableInfo">
-				<span>Showing { defaultCount } out of { data.length } records</span>
-				<select name="recordsCount">
-					{
-						optionValues.map((item, index) => {
-							return (
-								<option value={ item } key={ `option_${index}` }>{ item }</option>
-							)
-						})
-					}
-				</select>
+				<span>Showing { data.length > defaultCount ? defaultCount : data.length } out of { data.length } records</span>
+				<div>
+					Showing
+					<select name="recordsCount">
+						{
+							optionValues.map((item, index) => {
+								return (
+									<option value={ item } key={ `option_${index}` }>{ item }</option>
+								)
+							})
+						}
+					</select>
+					items per page
+				</div>
 			</p>
 			<table>
 				<thead>
@@ -92,12 +95,8 @@ const CategoryDetails = ({ title, body, activeCategory }) => {
 };
 
 
-const Details = () => {
-	const location = useLocation();
-	const navigate = useNavigate();
-
-	const itemId = location.state.id;
-	const activeCategory = location.state.activeCategory;
+const Details = ({ childDetails, activeCategory, removeDetails }) => {
+	const itemId = childDetails.id;
 	const APIEndPoint = activeCategory === 'posts' ? 'comments' : 'photos';
 
 	const initAPIResponse = {
@@ -144,13 +143,13 @@ const Details = () => {
 	}, []);
 
 	return (
-		<section className="typicode-details">
+		<div className="typicode-details">
 			<h1>
 				<span>Details</span>
-				<Link to={ () => navigate('/users') }>Back to user details</Link>
+				<span onClick={ () => removeDetails() }>Back to user details</span>
 			</h1>
 
-			<CategoryDetails {...location.state} {...{activeCategory}} />
+			<CategoryDetails {...childDetails} {...{activeCategory}} />
 			{
 				APIResponse.loading ? (
 					<LoadingBlock />
@@ -164,7 +163,7 @@ const Details = () => {
 					)
 				)
 			}
-		</section>
+		</div>
 	)
 };
 

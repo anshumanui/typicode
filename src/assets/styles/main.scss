@@ -1,7 +1,7 @@
 @import '_mixin';
 
 main {
-	font-family: ProximaNova,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-family: $font;
 	color: $dark-grey;
 	box-sizing: border-box;
 	line-height: 1.5;
@@ -19,18 +19,21 @@ main {
 			justify-content: space-between;
 			align-items: center;
 
-			> a {
-				&:link, &:visited {
+			> span {
+				transition: all 0.3s ease-in-out 0s;
+
+				&:last-child {
 					color: $primary;
 					font-size: 0.875rem;
 					text-transform: uppercase;
 					padding: 0 0.25rem;
 					border-radius: 3px;
-				}
+					cursor: pointer;
 
-				&:hover, &:active, &:focus {
-					color: $lightest-grey;
-					background-color: $primaryDark;
+					&:hover {
+						color: $lightest-grey;
+						background-color: $primaryDark;
+					}
 				}
 			}
 		}
@@ -148,12 +151,26 @@ main {
 						a {
 							&:link, &:visited {
 								text-transform: uppercase;
-								display: block;
+								display: flex;
 								padding: 1rem 2rem;
 								color: $lightest-grey;
 								background-color: $primary;
 								border-bottom-left-radius: 7px;
 								border-bottom-right-radius: 7px;
+								align-items: center;
+								gap: 0.5rem;
+
+								svg {
+									transition: all 0.3s ease-in-out 0s;
+									width: 2.5rem;
+									height: 2.5rem;
+									visibility: hidden;
+									margin-left: 0;
+
+									path {
+										fill: $lightest-grey;
+									}
+								}
 							}
 						}
 					}
@@ -188,6 +205,11 @@ main {
 								&:link, &:visited {
 									background-color: $primaryDark;
 									padding: 2rem;
+
+									svg {
+										visibility: visible;
+										margin-left: 1rem;
+									}
 								}
 							}
 						}
@@ -249,7 +271,19 @@ main {
 
 				.typicode-table {
 					.typicode-tableInfo {
-						text-align: right;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+
+						select {
+							border: 1px solid $grey;
+							margin-left: 0.5rem;
+							margin-right: 0.5rem;
+							font-family: $font;
+							padding: 0.25rem;
+							color: $dark-grey;
+							border-radius: 3px;
+						}
 					}
 
 					@include table;
@@ -257,7 +291,7 @@ main {
 			}
 		}
 
-		&.typicode-details {		
+		.typicode-details {		
 			ul {
 				display: flex;
 				gap: 2rem;
@@ -284,7 +318,19 @@ main {
 
 			.typicode-table {
 				.typicode-tableInfo {
-					text-align: right;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+
+					select {
+						border: 1px solid $grey;
+						margin-left: 0.5rem;
+						margin-right: 0.5rem;
+						font-family: $font;
+						padding: 0.25rem;
+						color: $dark-grey;
+						border-radius: 3px;
+					}
 				}
 
 				@include table;
